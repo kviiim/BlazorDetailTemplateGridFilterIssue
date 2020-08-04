@@ -1,0 +1,43 @@
+﻿@page "/"
+
+<Telerik.Blazor.Components.TelerikGrid Data="@GridData" FilterMode="Telerik.Blazor.GridFilterMode.FilterRow">
+
+    <GridColumns>
+        <Telerik.Blazor.Components.GridColumn Title="Name" Filterable="true" Field="@nameof(GridItem.Name)"></Telerik.Blazor.Components.GridColumn>
+        <Telerik.Blazor.Components.GridColumn Field="@nameof(GridItem.Id)" Filterable="true" Title="Id"></Telerik.Blazor.Components.GridColumn>
+    </GridColumns>
+
+    <DetailTemplate>
+            <div>Custom Template</div>
+    </DetailTemplate>
+
+</Telerik.Blazor.Components.TelerikGrid>
+
+@code {
+
+    List<GridItem> GridData { get; set; } = new List<GridItem>();
+
+    protected override void OnInitialized()
+    {
+        GridData = GenerateData();
+    }
+
+    private List<GridItem> GenerateData()
+    {
+        List<GridItem> data = new List<GridItem>();
+        for (int i = 0; i < 5; i++)
+        {
+            GridItem mdl = new GridItem { Id = i, Name = $"Name {i}" };
+            data.Add(mdl);
+        }
+        return data;
+    }
+
+    public class GridItem
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+    }
+
+}
+
